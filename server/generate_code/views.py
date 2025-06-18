@@ -5,5 +5,5 @@ from rest_framework.response import Response
 
 # Create your views here.
 @api_view(['POST'])
-def generate_code(request):
+def index(request):
     pass
