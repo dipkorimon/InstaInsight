@@ -1,4 +1,6 @@
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import send_mail
 from django.shortcuts import render
 from rest_framework.authtoken.admin import User
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -6,9 +8,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, update_session_auth_hash
 from .serializers import RegisterSerializer
-from .utils import password_reset_token
+from .utils import password_reset_token, email_activation_token
 
 
 # Create your views here.
@@ -19,9 +21,43 @@ class RegisterView(APIView):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({"token": token.key}, status=status.HTTP_201_CREATED)
+            user.is_active = False
+            user.save()
+
+            token = email_activation_token.make_token(user)
+            uid = user.pk
+            domain = get_current_site(request).domain
+            activation_link = f"http://{domain}/api/auth/activate/{uid}/{token}/"
+
+            # Send email (you can use sendgrid or SMTP)
+            send_mail(
+                subject="Activate your account",
+                message=f"Hi {user.username}, click the link to activate your account: {activation_link}",
+                from_email="noreply@example.com",
+                recipient_list=[user.email],
+                fail_silently=False,
+            )
+
+            return Response({"msg": "User registered. Check your email to activate account."},
+                            status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ActivateAccountView(APIView):
+    permission_classes = (AllowAny,)
+
+    def get(self, request, uid, token):
+        try:
+            user = User.objects.get(pk=uid)
+        except User.DoesNotExist:
+            return Response({"error": "Invalid user"}, status=status.HTTP_400_BAD_REQUEST)
+
+        if email_activation_token.check_token(user, token):
+            user.is_active = True
+            user.save()
+            return Response({"msg": "Account activated successfully. You can now log in."})
+        else:
+            return Response({"error": "Invalid or expired token"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginView(APIView):
@@ -96,3 +132,24 @@ class ConfirmPasswordResetView(APIView):
         user.save()
 
         return Response({"msg": "Password has been reset successfully"}, status=status.HTTP_200_OK)
+
+
+class ChangePasswordView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        old_password = request.data.get("old_password")
+        new_password = request.data.get("new_password")
+        confirm_new_password = request.data.get("confirm_new_password")
+
+        if not user.check_password(old_password):
+            return Response({"error": "Old password is incorrect"}, status=status.HTTP_400_BAD_REQUEST)
+
+        if new_password != confirm_new_password:
+            return Response({"error": "New passwords do not match"}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.set_password(new_password)
+        user.save()
+
+        return Response({"msg": "Password changed successfully"}, status=status.HTTP_200_OK)
