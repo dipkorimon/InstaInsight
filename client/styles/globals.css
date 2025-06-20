@@ -1,1 +1,25 @@
 @import "tailwindcss";
+@tailwind utilities;
+
+/* Use @layer base for base styles or component-like classes */
+@layer base {
+    .page-wrapper {
+        @apply min-h-screen flex items-center justify-center bg-gray-100 px-4;
+    }
+
+    .card {
+        @apply bg-white p-6 rounded-xl shadow-md w-full max-w-md;
+    }
+
+    .heading {
+        @apply font-bold mb-4 text-lg sm:text-xl md:text-2xl lg:text-3xl;
+    }
+
+    .error-text {
+        @apply text-red-600 mb-2;
+    }
+
+    .success-text {
+        @apply text-green-600 mb-2;
+    }
+}
