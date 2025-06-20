@@ -134,3 +134,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Set the default email backend from environment
+EMAIL_BACKEND = config("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
+
+# SendGrid specific settings
+SENDGRID_API_KEY = config('SENDGRID_API_KEY', default='')
+SENDGRID_SANDBOX_MODE_IN_DEBUG = config('SENDGRID_SANDBOX_MODE_IN_DEBUG', cast=bool, default=False)
+SENDGRID_ECHO_TO_STDOUT = config('SENDGRID_ECHO_TO_STDOUT', cast=bool, default=True)
+
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="noreply@yourdomain.com")
