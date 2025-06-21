@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/globals.css";
+import ClientWrapper from "@/app/ClientWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,7 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "InstaInsight",
+  title: {
+    default: "InstaInsight",
+    template: "%s | InstaInsight",
+  },
   description: "AI-Enhanced Bangla Natural Language Interface for Python Code Generation\n" +
       "\n",
 };
@@ -23,7 +27,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ClientWrapper>{children}</ClientWrapper>
       </body>
     </html>
   );
