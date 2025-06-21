@@ -40,6 +40,10 @@ export default function LoginPage() {
             const data = await res.json();
 
             if (res.ok) {
+                if (data.token) {
+                    localStorage.setItem("token", data.token);
+                }
+
                 setSuccess(data.msg || "Login successful");
                 setError("");
 
