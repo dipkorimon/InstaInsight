@@ -97,12 +97,17 @@ class RequestPasswordResetView(APIView):
 
         token = password_reset_token.make_token(user)
         uid = user.pk
+        domain = get_current_site(request).domain
+        reset_link = f"http://{domain}/api/auth/reset-password-confirm/{uid}/{token}/"
 
-        # Normally you'd send this via email. For now, return it in response for Postman testing
-        return Response({
-            "uid": uid,
-            "token": token
-        }, status=status.HTTP_200_OK)
+        send_mail(
+            subject="Password Reset Request",
+            message=f"Click the link to reset your password: {reset_link}",
+            from_email="noreply@example.com",
+            recipient_list=[user.email],
+        )
+
+        return Response({"message": "Password reset link sent to your email."}, status=status.HTTP_200_OK)
 
 
 class ConfirmPasswordResetView(APIView):
