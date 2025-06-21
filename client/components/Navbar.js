@@ -72,13 +72,9 @@ export default function Navbar() {
                 href="/whats-new"
                 className="bg-gray-100 text-gray-800 px-5 py-2 rounded-lg shadow-sm flex items-center gap-3 hover:bg-gray-200 transition-all text-sm"
             >
-                <FiInfo className="text-blue-600 animate-bounce" size={18} />
-                <span className="font-medium">
-    Discover what’s new in <span className="font-semibold">InstaInsight</span>
-  </span>
+                <FiInfo className="text-blue-600 animate-bounce" size={18}/>
+                <span className="font-medium">Discover what’s new in <span className="font-semibold">InstaInsight</span></span>
             </Link>
-
-
 
             {!isLoggedIn ? (
                 <Link
