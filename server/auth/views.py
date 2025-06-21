@@ -87,6 +87,8 @@ class RequestPasswordResetView(APIView):
 
     def post(self, request):
         email = request.data.get("email")
+        redirect_url = request.data.get("redirect_url")
+
         if not email:
             return Response({"error": "Email is required"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -98,11 +100,19 @@ class RequestPasswordResetView(APIView):
         token = password_reset_token.make_token(user)
         uid = user.pk
         domain = get_current_site(request).domain
-        reset_link = f"http://{domain}/api/auth/reset-password-confirm/{uid}/{token}/"
+        reset_link = f"{redirect_url}/auth/password-reset-confirm/{uid}/{token}/"
+
+        # Email contains link + token and uid info
+        message = (
+            f"Click the link to reset your password:\n{reset_link}\n\n"
+            f"Use the following details:\n"
+            f"UID: {uid}\n"
+            f"Token: {token}\n"
+        )
 
         send_mail(
             subject="Password Reset Request",
-            message=f"Click the link to reset your password: {reset_link}",
+            message=message,
             from_email="noreply@example.com",
             recipient_list=[user.email],
         )
