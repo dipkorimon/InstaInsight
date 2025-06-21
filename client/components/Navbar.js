@@ -18,6 +18,40 @@ export default function Navbar() {
         if (token) setIsLoggedIn(true);
     }, []);
 
+    const [userInfo, setUserInfo] = useState(null);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+
+        if (token) {
+            setIsLoggedIn(true);
+
+            const fetchUserInfo = async () => {
+                const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+                try {
+                    const res = await fetch(`${API_BASE_URL}/api/user-info/`, {
+                        headers: {
+                            Authorization: `Token ${token}`,
+                        },
+                    });
+
+                    if (res.ok) {
+                        const data = await res.json();
+                        setUserInfo(data);
+                    } else {
+                        console.error("Failed to fetch user info");
+                    }
+                } catch (err) {
+                    console.error("Error fetching user info", err);
+                }
+            };
+
+            fetchUserInfo();
+        }
+    }, []);
+
+
     // Close dropdown on outside click
     useEffect(() => {
         function handleClickOutside(event) {
@@ -105,7 +139,7 @@ export default function Navbar() {
                             <ul className="text-sm text-gray-700 p-2">
                                 <li className="px-4 py-2 text-gray-400 cursor-pointer flex items-center gap-2">
                                     <FiMail className="text-gray-400" />
-                                    name@company.com
+                                    {userInfo.email || "No email"}
                                 </li>
                                 <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2">
                                     <RiLockPasswordLine className="text-gray-500" />
