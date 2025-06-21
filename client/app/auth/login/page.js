@@ -95,9 +95,9 @@ export default function LoginPage() {
                                     me</label>
                             </div>
                         </div>
-                        <a href="#"
+                        <Link href="#"
                            className="text-sm font-medium text-blue-600 hover:underline">Forgot
-                            password?</a>
+                            password?</Link>
                     </div>
                     <SubmitButton text="Sign in"/>
                 </form>
