@@ -67,7 +67,7 @@ export default function Navbar() {
 
     return (
         <nav className="bg-white border-b border-gray-200 px-10 py-3 flex items-center justify-between">
-            <div className="text-3xl font-semibold text-blue-600">InstaInsight</div>
+            <div className="text-3xl font-semibold text-blue-600"><Link href="/">InstaInsight</Link></div>
             <Link
                 href="/whats-new"
                 className="bg-gray-100 text-gray-800 px-5 py-2 rounded-lg shadow-sm flex items-center gap-3 hover:bg-gray-200 transition-all text-sm"
