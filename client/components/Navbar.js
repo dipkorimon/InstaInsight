@@ -4,8 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
-import {FiHelpCircle, FiInfo, FiLogOut, FiMail, FiSettings, FiTrendingUp} from "react-icons/fi";
+import {FiHelpCircle, FiHome, FiInfo, FiLogOut, FiMail, FiSettings, FiTrendingUp} from "react-icons/fi";
 import {RiLockPasswordLine} from "react-icons/ri";
+import SidebarItem from "@/components/SidebarItem";
 
 export default function Navbar() {
     const router = useRouter();
@@ -100,20 +101,27 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="bg-white border-b border-gray-200 px-10 py-3 flex items-center justify-between">
-            <div className="text-3xl font-semibold text-blue-600"><Link href="/">InstaInsight</Link></div>
+        <nav className="bg-gray-900 border-b border-gray-800 px-10 py-3 flex items-center justify-between text-white">
+            <div className="flex items-center gap-2 text-gray-300 text-xl font-bold">
+                <Link href="/">
+                    InstaInsight
+                </Link>
+                <span className="bg-gray-700 px-2 py-0.5 rounded text-xs font-mono select-none">v1.0.0</span>
+            </div>
+
+
             <Link
-                href="/whats-new"
-                className="bg-gray-100 text-gray-800 px-5 py-2 rounded-lg shadow-sm flex items-center gap-3 hover:bg-gray-200 transition-all text-sm"
+                href="#"
+                className="bg-gray-800 text-white px-5 py-2 rounded-lg shadow-sm flex items-center gap-3 hover:bg-gray-700 transition-all text-sm"
             >
-                <FiInfo className="text-blue-600 animate-bounce" size={18}/>
+                <FiInfo className="text-yellow-400 animate-bounce" size={18} />
                 <span className="font-medium">Discover what’s new in <span className="font-semibold">InstaInsight</span></span>
             </Link>
 
             {!isLoggedIn ? (
                 <Link
                     href="/auth/login/"
-                    className="px-6 py-2 font-medium tracking-wide text-dark capitalize transition-colors duration-300 transform bg-gray-300 rounded-lg hover:bg-gray-200 focus:outline-none cursor-pointer"
+                    className="px-6 py-2 font-medium tracking-wide text-gray-300 capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none cursor-pointer"
                 >
                     Sign In
                 </Link>
@@ -128,41 +136,26 @@ export default function Navbar() {
                     </Link>
                     <button
                         onClick={toggleDropdown}
-                        className="text-gray-700 hover:text-black focus:outline-none cursor-pointer"
+                        className="text-white hover:text-gray-300 focus:outline-none cursor-pointer"
                         aria-label="User menu"
                     >
-                        <FaUserCircle size={28}/>
+                        <FaUserCircle size={28} />
                     </button>
 
                     {dropdownOpen && (
-                        <div className="absolute right-0 mt-10 w-auto min-w-[250px] bg-white border border-gray-200 rounded-md shadow-lg z-50">
-                            <ul className="text-sm text-gray-700 p-2">
-                                <li className="px-4 py-2 text-gray-400 cursor-pointer flex items-center gap-2">
-                                    <FiMail className="text-gray-400" />
-                                    {userInfo.email || "No email"}
-                                </li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2">
-                                    <RiLockPasswordLine className="text-gray-500" />
-                                    <Link href="/auth/change-password/">Change Password</Link>
-                                </li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2">
-                                    <FiTrendingUp className="text-gray-500" />
-                                    <Link href="#">Upgrade Plan</Link>
-                                </li>
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2">
-                                    <FiSettings className="text-gray-500" />
-                                    <Link href="#">Settings</Link>
-                                </li>
-                                <hr className="border-gray-200" />
-                                <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2">
-                                    <FiHelpCircle className="text-gray-500" />
-                                    <Link href="#">Help</Link>
-                                </li>
+                        <div className="absolute right-0 mt-10 w-auto min-w-[250px] bg-gray-900 border border-gray-700 rounded-md shadow-lg z-50">
+                            <ul className="text-sm text-gray-300 p-2">
+                                <SidebarItem href="#" icon={<FiMail size={18} />} label={userInfo?.email || "No email"} />
+                                <SidebarItem href="/auth/change-password/" icon={<RiLockPasswordLine size={18} />} label="Change Password" />
+                                <SidebarItem href="#" icon={<FiTrendingUp size={18} />} label="Upgrade Plan" />
+                                <SidebarItem href="#" icon={<FiSettings size={18} />} label="Settings" />
+                                <hr className="border-gray-700" />
+                                <SidebarItem href="/" icon={<FiHelpCircle size={18} />} label="Help" />
                                 <li
-                                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-600 flex items-center gap-2"
+                                    className="flex items-center gap-3 px-4 py-2 text-sm font-medium text-red-500 hover:bg-gray-800 rounded-lg transition-colors cursor-pointer"
                                     onClick={handleLogout}
                                 >
-                                    <FiLogOut className="text-red-500" />
+                                    <FiLogOut className="text-red-500" size={18} />
                                     <Link href="#">Log out</Link>
                                 </li>
                             </ul>
@@ -171,5 +164,6 @@ export default function Navbar() {
                 </div>
             )}
         </nav>
+
     );
 }
