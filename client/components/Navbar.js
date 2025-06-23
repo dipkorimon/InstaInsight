@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
-import {FiHelpCircle, FiHome, FiInfo, FiLogOut, FiMail, FiSettings, FiTrendingUp} from "react-icons/fi";
+import {FiBell, FiHelpCircle, FiHome, FiInfo, FiLogOut, FiMail, FiSettings, FiTrendingUp} from "react-icons/fi";
 import {RiLockPasswordLine} from "react-icons/ri";
 import SidebarItem from "@/components/SidebarItem";
 
@@ -127,6 +127,11 @@ export default function Navbar() {
                 </Link>
             ) : (
                 <div className="relative flex gap-5" ref={dropdownRef}>
+                    <button className="relative">
+                        <FiBell className="text-gray-300 cursor-pointer" size={22} />
+                        <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-gray-800" />
+                    </button>
+
                     <Link
                         href="#"
                         className="px-4 py-2 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-sm font-semibold rounded-lg shadow hover:from-yellow-500 hover:to-yellow-700 flex items-center gap-2"
