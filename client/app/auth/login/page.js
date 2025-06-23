@@ -95,7 +95,7 @@ export default function LoginPage() {
                                     me</label>
                             </div>
                         </div>
-                        <Link href="#"
+                        <Link href="/auth/password-reset"
                            className="text-sm font-medium text-blue-600 hover:underline">Forgot
                             password?</Link>
                     </div>
