@@ -9,7 +9,7 @@ export default function ClientWrapper({ children }) {
 
     // Hide Navbar on these paths
     const hideNavbar =
-        pathname === "/auth/login" || pathname === "/authregister/register" || pathname === "/auth/password-reset" || pathname === "/auth/password-reset-confirm";
+        pathname === "/auth/login" || pathname === "/auth/register" || pathname === "/auth/password-reset" || pathname === "/auth/password-reset-confirm";
 
     return (
         <div className="flex h-screen overflow-hidden">
