@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FiHome, FiSettings, FiMessageCircle, FiLogOut, FiMenu } from "react-icons/fi";
+import {FiHome, FiSettings, FiMessageCircle, FiLogOut, FiMenu, FiBell} from "react-icons/fi";
 import Link from "next/link";
 import SidebarItem from "@/components/SidebarItem";
 import {PiBrainDuotone} from "react-icons/pi";
@@ -31,6 +31,7 @@ export default function Sidebar() {
                 <SidebarItem href="/" icon={<FiHome size={20} />} label="Home" collapsed={collapsed} />
                 <SidebarItem href="#" icon={<MdAddToPhotos size={20} />} label="New Chat" collapsed={collapsed} />
                 <SidebarItem href="#" icon={<IoSearchOutline size={20} />} label="Search Chats" collapsed={collapsed} />
+                <SidebarItem href="#" icon={<FiBell size={20} />} label="Notifications" collapsed={collapsed} />
                 <SidebarItem href="#" icon={<FiSettings size={20} />} label="Settings" collapsed={collapsed} />
             </div>
 
