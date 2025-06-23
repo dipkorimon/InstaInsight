@@ -21,7 +21,7 @@ export default function Sidebar() {
                     </Link>
                     <button
                         onClick={() => setCollapsed(!collapsed)}
-                        className="focus:outline-none"
+                        className="focus:outline-none cursor-pointer"
                     >
                         <FiMenu size={20} />
                     </button>
