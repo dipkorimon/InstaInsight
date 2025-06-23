@@ -1,7 +1,10 @@
+from email.policy import default
+
+from decouple import config
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework.authtoken.admin import User
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
@@ -35,7 +38,6 @@ class RegisterView(APIView):
                 message=f"Hi {user.username}, click the link to activate your account: {activation_link}",
                 from_email="noreply@example.com",
                 recipient_list=[user.email],
-                fail_silently=False,
             )
 
             return Response({"msg": "User registered. Check your email to activate account."},
@@ -55,6 +57,11 @@ class ActivateAccountView(APIView):
         if email_activation_token.check_token(user, token):
             user.is_active = True
             user.save()
+
+            # Redirect to frontend login page
+            login_url = config("NEXT_PUBLIC_FRONTEND_BASE_URL", default="http://192.168.68.137:3000") + "/auth/login/"
+            return redirect(login_url)
+
             return Response({"msg": "Account activated successfully. You can now log in."})
         else:
             return Response({"error": "Invalid or expired token"}, status=status.HTTP_400_BAD_REQUEST)
