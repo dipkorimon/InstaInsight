@@ -51,7 +51,7 @@ export default function LoginPage() {
                     router.push("/");
                 }, 1500);
             } else {
-                setError(data.error || "Invalid credentials");
+                setError(data.detail ||data.error || "Invalid credentials");
                 setSuccess("");
             }
         } catch (err) {
