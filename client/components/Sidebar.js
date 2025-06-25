@@ -15,7 +15,7 @@ export default function Sidebar() {
         <aside className={`bg-gray-900 text-white h-screen flex flex-col transition-all duration-300 ${collapsed ? 'w-18' : 'w-64'}`}>
             {/* Top nav and toggle */}
             <div className="px-2 py-2">
-                <div className="flex items-center justify-between px-4 py-3 ">
+                <div className="flex items-center justify-between px-4 py-3 mb-2">
                     <Link href="/" className={`text-xl font-semibold transition-all ${collapsed ? 'hidden' : 'block'}`}>
                         <PiBrainDuotone size={20} />
                     </Link>
