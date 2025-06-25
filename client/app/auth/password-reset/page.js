@@ -3,12 +3,14 @@
 import InputField from "@/components/InputField";
 import SubmitButton from "@/components/SubmitButton";
 import { useState } from "react";
+import {useRouter} from "next/navigation";
 
 export default function PasswordResetRequestPage() {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,7 +36,7 @@ export default function PasswordResetRequestPage() {
                 setMessage(data.message);
 
                 setTimeout(() => {
-                    router.push("/");
+                    router.push("/auth/password-reset-confirm");
                 }, 1500);
             }
         } catch (err) {
