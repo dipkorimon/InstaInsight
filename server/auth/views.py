@@ -12,6 +12,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate, update_session_auth_hash
+
+from system.rate_limiter.login.limiter import rate_limit_login
 from .serializers import RegisterSerializer
 from .utils import password_reset_token, email_activation_token
 
@@ -67,9 +69,11 @@ class ActivateAccountView(APIView):
             return Response({"error": "Invalid or expired token"}, status=status.HTTP_400_BAD_REQUEST)
 
 
+
 class LoginView(APIView):
     permission_classes = (AllowAny,)
 
+    @rate_limit_login(ip_limit=5, user_limit=5)
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
