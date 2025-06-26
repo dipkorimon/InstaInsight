@@ -103,7 +103,7 @@ export default function RegisterPage() {
                                        href="#">Terms and Conditions</Link></label>
                         </div>
                     </div>
-                    <SubmitButton text="Create and Account"/>
+                    <SubmitButton text="Create an Account"/>
                 </form>
                 <p className="text-sm font-light text-gray-500">
                     Already have an account? <Link href="/auth/login/"
