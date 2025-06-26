@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import InputField from "@/components/InputField";
 import SubmitButton from "@/components/SubmitButton";
 import Link from "next/link";
+import {RiLockPasswordLine} from "react-icons/ri";
 
 export default function ChangePasswordPage() {
     const router = useRouter();
@@ -76,6 +77,7 @@ export default function ChangePasswordPage() {
                         label="Old Password"
                         value={form.old_password}
                         onChange={handleChange}
+                        icon={RiLockPasswordLine}
                     />
                     <InputField
                         name="new_password"
@@ -84,6 +86,7 @@ export default function ChangePasswordPage() {
                         label="New Password"
                         value={form.new_password}
                         onChange={handleChange}
+                        icon={RiLockPasswordLine}
                     />
                     <InputField
                         name="confirm_new_password"
@@ -92,6 +95,7 @@ export default function ChangePasswordPage() {
                         label="Confirm New Password"
                         value={form.confirm_new_password}
                         onChange={handleChange}
+                        icon={RiLockPasswordLine}
                     />
                     <div className="flex items-start">
                         <div className="flex items-center h-5">

@@ -4,6 +4,8 @@ import InputField from "@/components/InputField";
 import SubmitButton from "@/components/SubmitButton";
 import { useState } from "react";
 import {useRouter} from "next/navigation";
+import {FaUserAlt} from "react-icons/fa";
+import {RiLockPasswordLine, RiTokenSwapLine} from "react-icons/ri";
 
 export default function ResetPasswordConfirmPage() {
     const router = useRouter();
@@ -77,6 +79,7 @@ export default function ResetPasswordConfirmPage() {
                         label="UID"
                         value={form.uid}
                         onChange={handleChange}
+                        icon={FaUserAlt}
                     />
                     <InputField
                         name="token"
@@ -84,6 +87,7 @@ export default function ResetPasswordConfirmPage() {
                         label="Token"
                         value={form.token}
                         onChange={handleChange}
+                        icon={RiTokenSwapLine}
                     />
                     <InputField
                         name="password"
@@ -92,6 +96,7 @@ export default function ResetPasswordConfirmPage() {
                         label="Password"
                         value={form.password}
                         onChange={handleChange}
+                        icon={RiLockPasswordLine}
                     />
                     <InputField
                         name="confirm_password"
@@ -100,6 +105,7 @@ export default function ResetPasswordConfirmPage() {
                         label="Confirm Password"
                         value={form.confirm_password}
                         onChange={handleChange}
+                        icon={RiLockPasswordLine}
                     />
                     <SubmitButton text={loading ? "Resetting..." : "Reset Password"} />
                 </form>

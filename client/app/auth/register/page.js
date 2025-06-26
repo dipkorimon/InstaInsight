@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import InputField from "@/components/InputField";
 import SubmitButton from "@/components/SubmitButton";
 import Link from "next/link";
+import {FiMail} from "react-icons/fi";
+import {FaUserAlt} from "react-icons/fa";
+import {RiLockPasswordLine} from "react-icons/ri";
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -66,6 +69,7 @@ export default function RegisterPage() {
                         label="Username"
                         value={form.username}
                         onChange={handleChange}
+                        icon={FaUserAlt}
                     />
                     <InputField
                         name="email"
@@ -74,6 +78,7 @@ export default function RegisterPage() {
                         label="Email"
                         value={form.email}
                         onChange={handleChange}
+                        icon={FiMail}
                     />
                     <InputField
                         name="password"
@@ -82,6 +87,7 @@ export default function RegisterPage() {
                         label="Password"
                         value={form.password}
                         onChange={handleChange}
+                        icon={RiLockPasswordLine}
                     />
                     <InputField
                         name="confirm_password"
@@ -90,6 +96,7 @@ export default function RegisterPage() {
                         label="Confirm Password"
                         value={form.confirm_password}
                         onChange={handleChange}
+                        icon={RiLockPasswordLine}
                     />
                     <div className="flex items-start">
                         <div className="flex items-center h-5">

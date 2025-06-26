@@ -5,6 +5,8 @@ import SubmitButton from "@/components/SubmitButton";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
+import {FaUserAlt} from "react-icons/fa";
+import {RiLockPasswordLine} from "react-icons/ri";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -74,6 +76,7 @@ export default function LoginPage() {
                         label="Username"
                         value={form.username}
                         onChange={handleChange}
+                        icon={FaUserAlt}
                     />
                     <InputField
                         name="password"
@@ -82,6 +85,7 @@ export default function LoginPage() {
                         label="Password"
                         value={form.password}
                         onChange={handleChange}
+                        icon={RiLockPasswordLine}
                     />
                     <div className="flex items-center justify-between">
                         <div className="flex items-start">

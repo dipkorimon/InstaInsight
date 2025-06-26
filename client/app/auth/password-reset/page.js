@@ -4,6 +4,7 @@ import InputField from "@/components/InputField";
 import SubmitButton from "@/components/SubmitButton";
 import { useState } from "react";
 import {useRouter} from "next/navigation";
+import {FiMail} from "react-icons/fi";
 
 export default function PasswordResetRequestPage() {
     const [email, setEmail] = useState("");
@@ -64,6 +65,7 @@ export default function PasswordResetRequestPage() {
                         label="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        icon={FiMail}
                     />
                     <SubmitButton text={loading ? "Sending..." : "Send Reset Link"} />
                 </form>
