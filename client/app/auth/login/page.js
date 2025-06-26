@@ -63,7 +63,7 @@ export default function LoginPage() {
     return (
         <div className="page-wrapper">
             <div className="card">
-                <h2 className="heading">Sign in to your account</h2>
+                <h2 className="heading">Good to See You Again</h2>
                 {error && <p className="error-text">{error}</p>}
                 {success && <p className="success-text">{success}</p>}
 
