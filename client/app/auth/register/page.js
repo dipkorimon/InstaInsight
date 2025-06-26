@@ -55,7 +55,7 @@ export default function RegisterPage() {
     return (
         <div className="page-wrapper">
             <div className="card">
-                <h2 className="heading">Create an Account</h2>
+                <h2 className="heading">Let’s Get You Started</h2>
                 {error && <p className="error-text">{error}</p>}
                 {success && <p className="success-text">{success}</p>}
 
@@ -103,7 +103,7 @@ export default function RegisterPage() {
                                        href="#">Terms and Conditions</Link></label>
                         </div>
                     </div>
-                    <SubmitButton text="Create an Account"/>
+                    <SubmitButton text="Register"/>
                 </form>
                 <p className="text-sm font-light text-gray-500">
                     Already have an account? <Link href="/auth/login/"
