@@ -8,8 +8,8 @@ export default function InputField({ name, type = "text", value, onChange, place
             </label>
             <div className="relative">
                 {Icon && (
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                        <Icon className="text-lg" />
+                    <span className="absolute inset-y-0 left-0 flex items-center px-3 text-gray-500 border-r border-gray-300">
+                        <Icon size={20} />
                     </span>
                 )}
                 <input
@@ -19,7 +19,7 @@ export default function InputField({ name, type = "text", value, onChange, place
                     onChange={onChange}
                     placeholder={placeholder}
                     className={`w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-100 ${
-                        Icon ? "pl-10" : ""
+                        Icon ? "pl-14" : ""
                     }`}
                     required
                 />
