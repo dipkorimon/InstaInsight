@@ -78,7 +78,7 @@ export default function LoginPage() {
                     <InputField
                         name="password"
                         type="password"
-                        placeholder="password"
+                        placeholder="Password"
                         label="Password"
                         value={form.password}
                         onChange={handleChange}
