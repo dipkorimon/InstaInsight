@@ -44,6 +44,11 @@ export default function ChatBox() {
         }
     };
 
+    function autoResize(textarea) {
+        textarea.style.height = "auto";
+        textarea.style.height = `${Math.min(textarea.scrollHeight, 300)}px`;
+    }
+
     return (
         <div className="flex flex-col h-full w-200">
             <div className="flex-1 overflow-y-auto p-4 space-y-4 scroll-hidden">
@@ -75,18 +80,18 @@ export default function ChatBox() {
                 <div ref={messagesEndRef}/>
             </div>
 
-
-
-
             <div className="px-4 py-3 w-200 sticky bottom-0 bg-gray-200 rounded-4xl max-w-3xl mx-auto">
                 <div className="flex flex-col gap-1">
                     {/* Textarea with transparent bg */}
                     <textarea
                         rows={1}
-                        className="w-full rounded-t-xl px-4 py-3 text-sm bg-transparent font-bold-medium focus:outline-none resize-none placeholder-gray-500 shadow-none max-h-40 overflow-y-auto scrollbar-hide"
-                        placeholder="Send a message..."
+                        className="w-full rounded-t-xl px-4 py-3 text-sm bg-transparent font-bold-medium focus:outline-none resize-none placeholder-gray-500 shadow-none max-h-300 overflow-y-auto scrollbar-hide"
+                        placeholder="What's on your mind?"
                         value={input}
-                        onChange={(e) => setInput(e.target.value)}
+                        onChange={(e) => {
+                            setInput(e.target.value);
+                            autoResize(e.target);
+                        }}
                         onKeyDown={handleKeyDown}
                     />
 
@@ -126,9 +131,6 @@ export default function ChatBox() {
                     </div>
                 </div>
             </div>
-
-
-
 
         </div>
     );
