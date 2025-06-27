@@ -105,7 +105,7 @@ export default function ChangePasswordPage() {
                         </div>
                         <div className="ml-3 text-sm">
                             <label htmlFor="terms" className="font-light text-gray-500">I accept
-                                the <Link className="font-medium text-blue-600 hover:underline"
+                                the <Link className="link"
                                        href="#">Terms and Conditions</Link></label>
                         </div>
                     </div>

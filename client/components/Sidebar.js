@@ -78,13 +78,13 @@ export default function Sidebar() {
                                 href="https://www.linkedin.com/in/dipkorimon"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hover:text-blue-400 transition-colors"
+                                className="link"
                             >
                                 LinkedIn
                             </a>
                             <a
                                 href="mailto:dipkorimon@gmail.com"
-                                className="hover:text-blue-400 transition-colors"
+                                className="link"
                             >
                                 Email
                             </a>
@@ -92,7 +92,7 @@ export default function Sidebar() {
                                 href="https://github.com/dipkorimon"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="hover:text-blue-400 transition-colors"
+                                className="link"
                             >
                                 GitHub
                             </a>

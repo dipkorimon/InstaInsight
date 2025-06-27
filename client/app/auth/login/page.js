@@ -99,15 +99,13 @@ export default function LoginPage() {
                                     me</label>
                             </div>
                         </div>
-                        <Link href="/auth/password-reset"
-                           className="text-sm font-medium text-blue-600 hover:underline">Forgot
-                            password?</Link>
+                        <Link href="/auth/password-reset" className="link">Forgot Password?</Link>
                     </div>
                     <SubmitButton text="Sign in"/>
                 </form>
                 <p className="text-sm font-light text-gray-500">
                     Don’t have an account yet? <Link href="/auth/register/"
-                                                     className="font-medium text-blue-600 hover:underline">Register
+                                                     className="link">Register
                     here</Link>
                 </p>
 

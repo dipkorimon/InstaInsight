@@ -106,7 +106,7 @@ export default function RegisterPage() {
                         </div>
                         <div className="ml-3 text-sm">
                             <label htmlFor="terms" className="font-light text-gray-500">I accept
-                                the <Link className="font-medium text-blue-600 hover:underline"
+                                the <Link className="link"
                                        href="#">Terms and Conditions</Link></label>
                         </div>
                     </div>
@@ -114,7 +114,7 @@ export default function RegisterPage() {
                 </form>
                 <p className="text-sm font-light text-gray-500">
                     Already have an account? <Link href="/auth/login/"
-                                                className="font-medium text-blue-600 hover:underline">Login
+                                                className="link">Login
                     here</Link>
                 </p>
 
