@@ -22,4 +22,8 @@
     .success-text {
         @apply text-green-800 bg-green-100 border border-green-300 rounded-lg px-4 py-2 mb-2 shadow-sm;
     }
+
+    .link {
+        @apply text-blue-900 hover:underline hover:text-blue-800;
+    }
 }
