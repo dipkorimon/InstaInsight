@@ -1,7 +1,10 @@
 "use client";
 
 import {useEffect, useRef, useState} from "react";
-import {FiCpu, FiMic, FiSend} from "react-icons/fi";
+import TypingIndicator from "@/components/TypingIndicator";
+import MicButton from "@/components/MicButton";
+import SendButton from "@/components/SendButton";
+import InsightIQ from "@/components/InsightIQ";
 
 export default function ChatBox() {
     const [messages, setMessages] = useState([
@@ -23,14 +26,42 @@ export default function ChatBox() {
         setInput("");
         setIsTyping(true);
 
-        const assistantReply = await simulateTypingResponse(
-            "This is a simulated reply for UI testing. I will replace this with API call."
-        );
+        const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-        setMessages((prev) => [
-            ...prev,
-            {id: Date.now() + 1, from: "assistant", text: assistantReply},
-        ]);
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/generate-code/index/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({userMessage: userMessage.text}),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                const assistantReply = data.generated_code;
+                setMessages((prev) => [
+                    ...prev,
+                    {id: Date.now() + 1, from: "assistant", text: assistantReply},
+                ]);
+            } else {
+                setMessages((prev) => [
+                    ...prev,
+                    {
+                        id: Date.now() + 1,
+                        from: "assistant",
+                        text: data.error || "Sorry, I couldn't understand that.",
+                    },
+                ]);
+            }
+        } catch (error) {
+            setMessages((prev) => [
+                ...prev,
+                {id: Date.now() + 1, from: "assistant", text: "Error fetching response."},
+            ]);
+        }
+
         setIsTyping(false);
     };
 
@@ -98,50 +129,29 @@ export default function ChatBox() {
                     {/* Bottom row with Tools text and icons */}
                     <div className="flex items-center justify-between rounded-b-xl px-4 py-2">
                         <div className="text-gray-600 font-sm select-none">
-                            <button
+                            <InsightIQ
                                 type="button"
-                                className="flex items-center gap-2 text-gray-600 hover:text-gray-800 px-3 py-1 cursor-pointer rounded-md border border-gray-300 transition"
-                                aria-label="Insight IQ feature"
-                            >
-                                <FiCpu size={20} />
-                                <span>InsightIQ</span>
-                            </button>
+                                ariaLabel="Insight IQ feature"
+                            />
 
                         </div>
 
                         <div className="flex items-center gap-4">
-                            <button
-                                className="text-gray-600 hover:text-gray-800 cursor-pointer"
-                                aria-label="Start microphone"
+                            <MicButton
                                 type="button"
-                            >
-                                <FiMic size={20} />
-                            </button>
-
-                            <button
-                                onClick={sendMessage}
+                                ariaLabel="Start microphone"
+                            />
+                            <SendButton
+                                sendMessage={sendMessage}
                                 disabled={!input.trim()}
-                                className="text-gray-800 disabled:text-gray-400 cursor-pointer"
                                 type="button"
-                                aria-label="Send message"
-                            >
-                                <FiSend  size={20} />
-                            </button>
+                                ariaLabel="Send Message"
+                            />
                         </div>
                     </div>
                 </div>
             </div>
 
-        </div>
-    );
-}
-
-function TypingIndicator() {
-    return (
-        <div className="flex space-x-1">
-            <div className="h-2 w-2 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.3s]"/>
-            <div className="h-2 w-2 bg-gray-500 rounded-full animate-bounce [animation-delay:-0.15s]"/>
-            <div className="h-2 w-2 bg-gray-500 rounded-full animate-bounce"/>
         </div>
     );
 }
