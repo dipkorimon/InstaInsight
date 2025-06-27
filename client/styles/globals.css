@@ -24,6 +24,34 @@
     }
 
     .link {
-        @apply text-blue-900 hover:underline hover:text-blue-800;
+        @apply text-sm font-semibold text-blue-900 hover:text-blue-800;
+    }
+
+    p {
+        @apply tracking-normal;
+    }
+
+    h1, h2, h3 {
+        @apply tracking-wide;
+    }
+
+    a {
+        @apply tracking-wide;
+    }
+
+    label {
+        @apply tracking-wide;
+    }
+
+    button {
+        @apply tracking-wide;
+    }
+
+    small {
+        @apply tracking-normal;
+    }
+
+    input, textarea, select {
+        @apply tracking-normal;
     }
 }
