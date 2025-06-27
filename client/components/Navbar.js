@@ -31,7 +31,7 @@ export default function Navbar() {
                 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
                 try {
-                    const res = await fetch(`${API_BASE_URL}/api/user-info/`, {
+                    const res = await fetch(`${API_BASE_URL}/api/users/user-info/`, {
                         headers: {
                             Authorization: `Token ${token}`,
                         },
