@@ -7,6 +7,7 @@ import SidebarItem from "@/components/SidebarItem";
 import {PiBrainDuotone} from "react-icons/pi";
 import {IoSearchOutline} from "react-icons/io5";
 import {MdAddToPhotos} from "react-icons/md";
+import DeveloperInfo from "@/components/DeveloperInfo";
 
 export default function Sidebar() {
     const [collapsed, setCollapsed] = useState(false);
@@ -70,34 +71,7 @@ export default function Sidebar() {
 
             {!collapsed ? (
                 <div className="p-4 border-t border-gray-700">
-                    <div className="text-center">
-                        <p className="text-sm text-gray-400">Crafted with ❤️ by</p>
-                        <p className="text-sm font-semibold text-gray-300">Dip Kor Imon</p>
-                        <div className="mt-2 flex justify-center gap-4 text-gray-400 text-sm">
-                            <a
-                                href="https://www.linkedin.com/in/dipkorimon"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="link"
-                            >
-                                LinkedIn
-                            </a>
-                            <a
-                                href="mailto:dipkorimon@gmail.com"
-                                className="link"
-                            >
-                                Email
-                            </a>
-                            <a
-                                href="https://github.com/dipkorimon"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="link"
-                            >
-                                GitHub
-                            </a>
-                        </div>
-                    </div>
+                    <DeveloperInfo />
                 </div>
             ) : (
                 <div className="p-4 border-t border-gray-700 flex justify-center items-center">
