@@ -5,6 +5,10 @@ import TypingIndicator from "@/components/TypingIndicator";
 import MicButton from "@/components/MicButton";
 import SendButton from "@/components/SendButton";
 import InsightIQ from "@/components/InsightIQ";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import {isPureCode} from "@/system/utils";
+import CodeBlockHeader from "@/components/CodeBlockHeader";
 
 export default function ChatBox() {
     const [messages, setMessages] = useState([
@@ -90,14 +94,37 @@ export default function ChatBox() {
                             msg.from === "user" ? "justify-end" : "justify-start"
                         }`}
                     >
-                        <div
-                            className={`max-w-[75%] px-4 py-2 rounded-xl shadow-sm whitespace-pre-wrap text-sm ${
-                                msg.from === "user"
-                                    ? "bg-gray-200 rounded-4xl"
-                                    : "bg-gray-200 rounded-4xl"
-                            }`}
-                        >
-                            {msg.text}
+                        <div>
+                            {msg.from === "user" ? (
+                                <p className="text-md font-bold-medium bg-gray-200 px-4 py-2 rounded-4xl max-h-[300px] max-w-150 overflow-y-auto">{msg.text}</p>
+                            ) : (
+                                isPureCode(msg.text) ? (
+                                    <div className="relative rounded-xl overflow-auto scrollbar-hide group w-full min-w-192">
+                                        {/* Code block header inside */}
+                                        <CodeBlockHeader msg={msg.text} />
+
+                                        {/* Syntax highlighted code */}
+                                        <SyntaxHighlighter
+                                            language="python"
+                                            style={oneDark}
+                                            customStyle={{
+                                                padding: "1rem",
+                                                paddingTop: "1.5rem",
+                                                margin: 0,
+                                                marginTop: "1rem",
+                                                fontSize: "0.875rem",
+                                                lineHeight: "1.5",
+                                                borderRadius: "1rem",
+                                            }}
+                                        >
+                                            {msg.text}
+                                        </SyntaxHighlighter>
+                                    </div>
+
+                                ) : (
+                                    <p className="text-md font-bold-medium bg-gray-200 px-4 py-2 rounded-4xl overflow-y-auto">{msg.text}</p>
+                                )
+                            )}
                         </div>
                     </div>
                 ))}
@@ -116,7 +143,7 @@ export default function ChatBox() {
                     {/* Textarea with transparent bg */}
                     <textarea
                         rows={1}
-                        className="w-full rounded-t-xl px-4 py-3 text-sm bg-transparent font-bold-medium focus:outline-none resize-none placeholder-gray-500 shadow-none max-h-300 overflow-y-auto scrollbar-hide"
+                        className="w-full rounded-t-xl px-4 py-3 text-md bg-transparent font-bold-medium focus:outline-none resize-none placeholder-gray-500 shadow-none max-h-300 overflow-y-auto scrollbar-hide"
                         placeholder="What's on your mind?"
                         value={input}
                         onChange={(e) => {
