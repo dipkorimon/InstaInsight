@@ -71,7 +71,12 @@ export default function Sidebar() {
 
             {!collapsed ? (
                 <div className="p-4 border-t border-gray-700">
-                    <DeveloperInfo />
+                    <DeveloperInfo
+                        name="Dip Kor Imon"
+                        linkedInProfile="https://www.linkedin.com/in/dipkorimon"
+                        email="mailto:dipkorimon@gmail.com"
+                        github="https://github.com/dipkorimon"
+                    />
                 </div>
             ) : (
                 <div className="p-4 border-t border-gray-700 flex justify-center items-center">
