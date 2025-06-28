@@ -5,6 +5,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import {isPureCode} from "@/system/utils";
 import CodeBlockHeader from "@/components/CodeBlockHeader";
+import ChatTextArea from "@/components/ChatTextArea";
 
 export default function ChatBox() {
     const [messages, setMessages] = useState([
@@ -122,8 +123,16 @@ export default function ChatBox() {
                 ))}
                 <div ref={messagesEndRef}/>
             </div>
-
-
+            <ChatTextArea
+                value={input}
+                onChange={(e) => {
+                    setInput(e.target.value);
+                    autoResize(e.target);
+                }}
+                onKeyDown={handleKeyDown}
+                sendMessage={sendMessage}
+                disabled={!input.trim()}
+            />
         </div>
     );
 }
