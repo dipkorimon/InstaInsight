@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { FiSettings, FiSun, FiTool } from "react-icons/fi";
 import {FaCode} from "react-icons/fa";
 import {IoIosNotifications} from "react-icons/io";
@@ -6,6 +6,45 @@ import {MdManageAccounts} from "react-icons/md";
 
 export default function Settings() {
     const [selectedTab, setSelectedTab] = useState("user-preferences");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) setIsLoggedIn(true);
+    }, []);
+
+    const [userInfo, setUserInfo] = useState(null);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+
+        if (token) {
+            setIsLoggedIn(true);
+
+            const fetchUserInfo = async () => {
+                const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+                try {
+                    const res = await fetch(`${API_BASE_URL}/api/users/user-info/`, {
+                        headers: {
+                            Authorization: `Token ${token}`,
+                        },
+                    });
+
+                    if (res.ok) {
+                        const data = await res.json();
+                        setUserInfo(data);
+                    } else {
+                        console.error("Failed to fetch user info");
+                    }
+                } catch (err) {
+                    console.error("Error fetching user info", err);
+                }
+            };
+
+            fetchUserInfo();
+        }
+    }, []);
 
     const tabs = [
         { key: "user-preferences", label: "User Preferences", icon: <FiSettings size={20} /> },
@@ -78,6 +117,7 @@ export default function Settings() {
                             >
                                 Delete
                             </button>} />
+                        <SettingItem label="Email" value={userInfo.email} />
                     </div>
                 )
             default:
