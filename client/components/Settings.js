@@ -3,10 +3,12 @@ import { FiSettings, FiSun, FiTool } from "react-icons/fi";
 import {FaCode} from "react-icons/fa";
 import {IoIosNotifications} from "react-icons/io";
 import {MdManageAccounts} from "react-icons/md";
+import DeleteAccount from "@/components/DeleteAccount";
 
 export default function Settings() {
     const [selectedTab, setSelectedTab] = useState("user-preferences");
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -109,14 +111,12 @@ export default function Settings() {
                         <h1 className="text-2sm font-semibold mb-3">Account Settings</h1>
                         <SettingItem label="Delete account" value={
                             <button
-                                onClick={() => {
-                                    // Your delete logic or modal trigger here
-                                    alert("Account deletion not yet implemented.");
-                                }}
+                                onClick={() => setIsModalOpen(true)}
                                 className="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded hover:bg-red-700 transition cursor-pointer"
                             >
                                 Delete
                             </button>} />
+                        {isModalOpen && <DeleteAccount onClose={() => setIsModalOpen(false)} />}
                         <SettingItem label="Email" value={userInfo.email} />
                     </div>
                 )
