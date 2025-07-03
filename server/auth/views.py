@@ -179,3 +179,21 @@ class ChangePasswordView(APIView):
         user.save()
 
         return Response({"msg": "Password changed successfully"}, status=status.HTTP_200_OK)
+
+
+class DeleteAccountView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        password = request.data.get("password")
+
+        if not password:
+            return Response({"detail": "Password is required."}, status=400)
+
+        user = request.user
+
+        if not user.check_password(password):
+            return Response({"detail": "Incorrect password."}, status=400)
+
+        user.delete()
+        return Response({"detail": "Account deleted successfully."}, status=204)
