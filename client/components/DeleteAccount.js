@@ -5,6 +5,48 @@ export default function DeleteAccount(props) {
     const [step, setStep] = useState("confirm");
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState("");
+    const [message, setMessage] = useState(null);
+
+    const handleDelete = async () => {
+        if (!password) {
+            setMessage({ type: "error", text: "Password is required" });
+            return;
+        }
+
+        setStep("loading");
+        setMessage(null);
+
+        // Show spinner minimum 2 seconds
+        await new Promise((r) => setTimeout(r, 2000));
+
+        try {
+            const token = localStorage.getItem("token");
+            const res = await fetch("http://127.0.0.1:8000/api/auth/delete-account/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Token ${token}`,
+                },
+                body: JSON.stringify({ password }),
+            });
+
+            if (res.status === 204) {
+                setStep("success");
+                setMessage({ type: "success", text: "Account deleted successfully." });
+                setTimeout(() => {
+                    localStorage.removeItem("token");
+                    window.location.href = "/login";
+                }, 2000);
+            } else {
+                const data = await res.json();
+                setStep("confirm");
+                setMessage({ type: "error", text: data.detail || "Something went wrong" });
+            }
+        } catch (error) {
+            setStep("confirm");
+            setMessage({ type: "error", text: "Server error. Please try again later." });
+        }
+    };
 
     return (
         <div className="fixed inset-0 z-50 grid place-content-center bg-black/50">
@@ -15,6 +57,18 @@ export default function DeleteAccount(props) {
                         <p className="mb-4 text-sm">
                             Please enter your password to permanently delete your account. This action is irreversible.
                         </p>
+
+                        {/* Message Box */}
+                        {message && (
+                            <div
+                                className={`mb-4 px-3 py-2 rounded ${
+                                    message.type === "error" ? "error-text" : "success-text"
+                                }`}
+                            >
+                                {message.text}
+                            </div>
+                        )}
+
                         <div className="relative flex items-center">
                             <input
                                 type={showPassword ? "text" : "password"}
@@ -33,7 +87,7 @@ export default function DeleteAccount(props) {
                         </div>
                         <div className="flex justify-between">
                             <button
-                                onClick={() => setStep("loading")}
+                                onClick={handleDelete}
                                 className="bg-red-600 text-white font-bold px-6 py-2 rounded hover:bg-red-700"
                             >
                                 Delete Account
@@ -50,7 +104,7 @@ export default function DeleteAccount(props) {
 
                 {step === "loading" && (
                     <div className="text-center">
-                        <p className="mb-2">Deleting your account...</p>
+                        <p className="mb-2 text-sm w-full">Deleting your account...</p>
                         <span className="animate-spin h-5 w-5 border-4 border-gray-600 border-t-red-600 rounded-full inline-block"></span>
                     </div>
                 )}
