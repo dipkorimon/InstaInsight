@@ -5,7 +5,7 @@ export default function CloseButton(props) {
         <button
             type="button"
             onClick={props.onClose}
-            className="-me-3 -mt-3 rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600 focus:outline-none cursor-pointer"
+            className="-me-7 -mt-4 rounded-full p-3 text-gray-300 transition-colors hover:bg-gray-800 focus:outline-none cursor-pointer"
             aria-label="Close"
         >
             <IoMdClose size={20} />
