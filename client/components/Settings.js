@@ -5,7 +5,7 @@ import {IoIosNotifications} from "react-icons/io";
 import {MdManageAccounts} from "react-icons/md";
 
 export default function Settings() {
-    const [selectedTab, setSelectedTab] = useState("general");
+    const [selectedTab, setSelectedTab] = useState("user-preferences");
 
     const tabs = [
         { key: "user-preferences", label: "User Preferences", icon: <FiSettings size={20} /> },
@@ -68,7 +68,16 @@ export default function Settings() {
                 return (
                     <div className="pl-4">
                         <h1 className="text-2sm font-semibold mb-3">Account Settings</h1>
-                        <SettingItem label="Delete account" value="Delete Button" />
+                        <SettingItem label="Delete account" value={
+                            <button
+                                onClick={() => {
+                                    // Your delete logic or modal trigger here
+                                    alert("Account deletion not yet implemented.");
+                                }}
+                                className="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded hover:bg-red-700 transition cursor-pointer"
+                            >
+                                Delete
+                            </button>} />
                     </div>
                 )
             default:
