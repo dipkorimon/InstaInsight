@@ -10,6 +10,7 @@ import Chats from "@/components/Chats";
 import SidebarToggle from "@/components/SIdebarToggle";
 import {useState} from "react";
 import Modal from "@/components/Modal";
+import Settings from "@/components/Settings";
 
 export default function Sidebar() {
     const [collapsed, setCollapsed] = useState(false);
@@ -28,7 +29,7 @@ export default function Sidebar() {
                 <SidebarItem href="#" icon={<FiSettings size={20} />} label="Settings" collapsed={collapsed}
                     onClick={() => setIsModalOpen(true)}
                 />
-                {isModalOpen && <Modal onClose={() => setIsModalOpen(false)} title="Settings" />}
+                {isModalOpen && <Modal onClose={() => setIsModalOpen(false)} title="Settings" setttings={<Settings/>} />}
             </div>
 
             {/* Chats Section (in scrollable middle) */}
