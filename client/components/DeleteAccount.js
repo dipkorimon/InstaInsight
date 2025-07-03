@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import {useRouter} from "next/navigation";
 
 export default function DeleteAccount(props) {
     const [step, setStep] = useState("confirm");
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState(null);
+    const router = useRouter();
 
     const handleDelete = async () => {
         if (!password) {
@@ -35,7 +37,7 @@ export default function DeleteAccount(props) {
                 setMessage({ type: "success", text: "Account deleted successfully." });
                 setTimeout(() => {
                     localStorage.removeItem("token");
-                    window.location.href = "/login";
+                    router.push("/");
                 }, 2000);
             } else {
                 const data = await res.json();
