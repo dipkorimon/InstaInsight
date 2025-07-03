@@ -37,7 +37,7 @@ export default function Sidebar() {
                                      onClick={() => setIsModalOpen(true)}
                         />
                 ) : ("")}
-                {isModalOpen && <Modal onClose={() => setIsModalOpen(false)} title="Settings" setttings={<Settings/>} />}
+                {isModalOpen && <Modal onClose={() => setIsModalOpen(false)} title="Settings" content={<Settings/>} />}
             </div>
 
             {/* Chats Section (in scrollable middle) */}

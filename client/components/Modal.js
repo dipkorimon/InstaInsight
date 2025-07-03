@@ -16,7 +16,7 @@ export default function Modal(props) {
 
                 <div className="mt-4">
                     {/*Modal content*/}
-                    {props.setttings}
+                    {props.content}
                 </div>
             </div>
         </div>
