@@ -121,7 +121,7 @@ export default function Navbar() {
             {!isLoggedIn ? (
                 <Link
                     href="/auth/login/"
-                    className="px-6 py-2 font-medium tracking-wide text-gray-300 capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none cursor-pointer"
+                    className="px-6 py-2 font-bold tracking-wide text-gray-300 capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none cursor-pointer"
                 >
                     Sign In
                 </Link>
@@ -129,7 +129,7 @@ export default function Navbar() {
                 <div className="relative flex gap-5" ref={dropdownRef}>
                     <Link
                         href="#"
-                        className="px-4 py-2 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-sm font-semibold rounded-lg shadow hover:from-yellow-500 hover:to-yellow-700 flex items-center gap-2"
+                        className="px-4 py-2 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white text-sm font-bold rounded-lg shadow hover:from-yellow-500 hover:to-yellow-700 flex items-center gap-2"
                     >
                         <FiTrendingUp />
                         Upgrade Plan

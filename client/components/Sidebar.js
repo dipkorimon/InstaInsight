@@ -8,10 +8,19 @@ import DeveloperInfo from "@/components/DeveloperInfo";
 import BounceAnimation from "@/components/BounceAnimation";
 import Chats from "@/components/Chats";
 import SidebarToggle from "@/components/SIdebarToggle";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import Modal from "@/components/Modal";
+import Settings from "@/components/Settings";
 
 export default function Sidebar() {
     const [collapsed, setCollapsed] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) setIsLoggedIn(true);
+    }, []);
 
     return (
         <aside className={`bg-gray-900 text-white h-screen flex flex-col transition-all duration-300 ${collapsed ? 'w-18' : 'w-64'}`}>
@@ -23,7 +32,12 @@ export default function Sidebar() {
                 <SidebarItem href="#" icon={<MdAddToPhotos size={20} />} label="New Chat" collapsed={collapsed} />
                 <SidebarItem href="#" icon={<IoSearchOutline size={20} />} label="Search Chats" collapsed={collapsed} />
                 <SidebarItem href="#" icon={<FiBell size={20} />} label="Notifications" collapsed={collapsed} />
-                <SidebarItem href="#" icon={<FiSettings size={20} />} label="Settings" collapsed={collapsed} />
+                {isLoggedIn ? (
+                        <SidebarItem href="#" icon={<FiSettings size={20} />} label="Settings" collapsed={collapsed}
+                                     onClick={() => setIsModalOpen(true)}
+                        />
+                ) : ("")}
+                {isModalOpen && <Modal onClose={() => setIsModalOpen(false)} title="Settings" content={<Settings/>} />}
             </div>
 
             {/* Chats Section (in scrollable middle) */}
